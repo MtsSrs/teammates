@@ -49,6 +49,40 @@ public class GoogleRecaptchaServiceTest extends BaseTestCase {
         assertFalse(new GoogleRecaptchaServiceStub("testKey").isVerificationSuccessful("non 2xx http response"));
     }
 
+     @Test
+     public void testModulo() {
+        ______TS("SecretKey != Null & SecretKey.isEmpty != Empty");
+        assertFalse(new GoogleRecaptchaServiceStub("NotNullNotEmpty").isVerificationSuccessful("Not Null and not empty secret key"));
+
+        ______TS("SecretKey != Null & SecretKey.isEmpty == Empty");
+        assertFalse(new GoogleRecaptchaServiceStub("").isVerificationSuccessful("Not Null but empty"));
+
+        ______TS("SecretKey == Null & SecretKey.isEmpty != Empty");
+        assertFalse(new GoogleRecaptchaServiceStub(null).isVerificationSuccessful("Null but not empty"));
+     
+        ______TS("SecretKey == Null & SecretKey.isEmpty == Empty");
+        assertFalse(new GoogleRecaptchaServiceStub(null).isVerificationSuccessful("NullAndEmpty"));
+        assertFalse(new GoogleRecaptchaServiceStub("").isVerificationSuccessful("NullAndEmpty")); 
+
+        ______TS("CaptchaResponse != Null & CaptchaResponse != Empty");
+        assertFalse(new GoogleRecaptchaServiceStub("NotNullNotEmpty").isVerificationSuccessful("Not null and not empty"));
+    
+        ______TS("CaptchaResponse == Null & CaptchaResponse != Empty");
+        assertFalse(new GoogleRecaptchaServiceStub("NullNotEmpty").isVerificationSuccessful(null));
+
+        ______TS("CaptchaResponse != Null & CaptchaResponse == Empty");
+        assertFalse(new GoogleRecaptchaServiceStub("NotNullButEmpty").isVerificationSuccessful(""));
+
+        ______TS("CaptchaResponse == Null & CaptchaResponse == Empty");
+        assertFalse(new GoogleRecaptchaServiceStub("NullAndEmpty").isVerificationSuccessful(null));
+        assertFalse(new GoogleRecaptchaServiceStub("NullAndEmpty").isVerificationSuccessful(""));
+
+        ______TS("CaptchaResponse has erros");
+        assertFalse(new GoogleRecaptchaServiceStub("Testing").isVerificationSuccessful("Missing recaptcha params"));
+
+        ______TS("CaptchaResponse no erros");
+        assertFalse(new GoogleRecaptchaServiceStub("Testing").isVerificationSuccessful("sucess"));
+     }
     /**
      * A subclass to mock responses and exceptions that could result in
      * {@link GoogleRecaptchaService#getApiResponse(String, String)}.
