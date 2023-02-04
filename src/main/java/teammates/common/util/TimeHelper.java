@@ -7,6 +7,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.TimeZone;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A helper class to hold time-related functions (e.g., converting dates to strings etc.).
@@ -126,4 +130,24 @@ public final class TimeHelper {
         }
     }
 
+
+
+
+    public class BrazilTimeMask {	
+        public String set_Id(TimeZone Id, Date data) throws ParseException {
+                //Colocando a TimeZone em America/Sao_Paulo
+                Id = TimeZone.getTimeZone("America/Sao_Paulo");
+                
+                //Colocando a hora do sistema no Modelo America/Sao_Paulo (DD-MM-dd'T'HH:mm:ss)
+                SimpleDateFormat myDate = new SimpleDateFormat("DD-MM-dd'T'HH:mm:ss");
+                myDate.setTimeZone(TimeZone.getTimeZone("BRT"));
+                
+                //Parser para forçar o código a mudar o horário e colocando no lugar certo!
+                Date newDate = myDate.parse("03/02/2023T09:01:02");
+                data = newDate;
+                
+                //retornando o ID setado
+                return Id.getID();
+        }
+    }
 }

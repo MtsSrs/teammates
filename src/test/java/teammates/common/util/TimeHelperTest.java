@@ -1,5 +1,8 @@
 package teammates.common.util;
 
+import java.util.TimeZone;
+import java.text.ParseException;
+import java.util.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -91,5 +94,18 @@ public class TimeHelperTest extends BaseTestCase {
 
         assertEquals(expected, actual);
     }
+    
+        @Test
+        public void testTimeZone() throws ParseException{
+                Date data = new Date();
+                data.setTime(1000000);
+                
+                BrazilTimeMask brazil = new BrazilTimeMask();
+                TimeZone timeZone = TimeZone.getTimeZone("Europe/London");
+                assertNotNull(brazil);
+                assertEquals("America/Sao_Paulo", brazil.set_Id(timeZone, data));
+                
+        }
+
 
 }
