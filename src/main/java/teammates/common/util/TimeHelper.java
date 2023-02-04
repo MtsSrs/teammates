@@ -130,10 +130,6 @@ public final class TimeHelper {
         }
     }
 
-
-
-
-    public class BrazilTimeMask {	
         public String set_Id(TimeZone Id, Date data) throws ParseException {
                 //Colocando a TimeZone em America/Sao_Paulo
                 Id = TimeZone.getTimeZone("America/Sao_Paulo");
@@ -149,5 +145,5 @@ public final class TimeHelper {
                 //retornando o ID setado
                 return Id.getID();
         }
-    }
+
 }
